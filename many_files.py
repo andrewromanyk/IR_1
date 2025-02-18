@@ -1,5 +1,6 @@
 import one_file as of
 import sortedcontainers as sc
+import pickle
 
 
 def read_all_files(names):
@@ -11,10 +12,27 @@ def read_all_files(names):
     return result
 
 
+def write_file(words):
+    with open('simple_words.txt', 'w', encoding='UTF-8') as f:
+        for word in words:
+            f.write(word + '\n')
+
+
+def write_ser(names: sc.SortedSet):
+    with open('simple_words_ser.txt', 'wb') as f:
+        pickle.dump(names, f)
+
+
+def read_ser(filename):
+    with open(filename, 'rb') as f:
+        return pickle.load(f)
+
+
 def main(names):
     result = read_all_files(names)
-
-    print(repr(result))
+    write_file(result)
+    write_ser(result)
+    print(read_ser('simple_words_ser.txt'))
 
 
 if __name__ == '__main__':
