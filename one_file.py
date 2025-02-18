@@ -2,31 +2,28 @@ import xml.etree.ElementTree as ET
 import sortedcontainers as sc
 
 
-def read_file(name: str):
+def read_file(name: str, words=sc.SortedSet()) -> sc.SortedSet:
     fb2 = ET.parse(name).getroot()
-    return parse_root_tag(fb2)
+    return parse_root_tag(fb2, words)
 
 
-def parse_root_tag(element: ET.Element) -> [str]:
-    words = sc.SortedSet()
+def parse_root_tag(element: ET.Element, words) -> sc.SortedSet:
     for text in element.itertext():
-        words.update(parse_text(text))
+        parse_text(text, words)
     return words
 
 
-def parse_text(text: str) -> [str]:
-    result = []
+def parse_text(text: str, words: sc.SortedSet) -> None:
     word = ""
     for ch in text:
         if is_token(ch):
             word += ch
         else:
             if word != "":
-                result.append(word.lower())
+                words.add(word.lower())
                 word = ""
     if word != "":
-        result.append(word.lower())
-    return result
+        words.add(word.lower())
 
 
 def is_token(ch: str) -> bool:
