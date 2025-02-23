@@ -8,8 +8,13 @@ def read_file(name: str, words=sc.SortedSet()) -> sc.SortedSet:
 
 
 def parse_root_tag(element: ET.Element, words) -> sc.SortedSet:
-    for text in element.itertext():
-        parse_text(text, words)
+    for el in element.iter():
+        if el.tag.endswith('binary'): 
+            continue
+        else:
+            text = el.text
+            if text != None:
+                parse_text(text, words)
     return words
 
 
