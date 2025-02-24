@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 import sortedcontainers as sc
-
+import basic
 
 def read_file(name: str, words=sc.SortedSet()) -> sc.SortedSet:
     fb2 = ET.parse(name).getroot()
@@ -21,18 +21,14 @@ def parse_root_tag(element: ET.Element, words) -> sc.SortedSet:
 def parse_text(text: str, words: sc.SortedSet) -> None:
     word = ""
     for ch in text:
-        if is_token(ch):
+        if basic.is_token(ch):
             word += ch
         else:
             if word != "":
-                words.add(word.lower())
+                words.add(basic.process_word(word))
                 word = ""
     if word != "":
-        words.add(word.lower())
-
-
-def is_token(ch: str) -> bool:
-    return ch.isalnum() or ch in "'`"
+        words.add(basic.process_word(word))
 
 
 if __name__ == '__main__':
