@@ -39,7 +39,7 @@ def main(names):
 
 
 if __name__ == '__main__':
-    names = [ "texts/" + i for i in
+    names = [ "../texts/" + i for i in
                     [
                     'alice_in_wonderland.fb2',
                     '1984.fb2',
