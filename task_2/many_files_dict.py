@@ -18,7 +18,7 @@ def bool_search_dict(expression, dictionary):
 def main(names):
     result = read_all_files(names)
     print(result)
-    print(bool_search_dict("(harry AND potter AND (NOT azkaban)) OR (animal AND farm AND comrade)", result))
+    print(bool_search_dict("(harry AND potter AND (NOT azkaban)) OR (comrade)", result))
     # write_file(result)
     # write_ser(result)
     # print(read_ser('simple_words_ser.txt'))

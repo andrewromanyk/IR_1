@@ -1,4 +1,5 @@
 from operator import contains
+from functools import reduce
 
 import many_files as mf
 
@@ -92,16 +93,11 @@ class TreeNode:
             elif self.left_child.in_range(expr):
                 result.extend(self.left_child.find_joker(expr))
 
-        # if left_range.startswith(expr):
-        #     result.extend(self.left_child.all_terms())
-        # if right_range.startswith(expr):
-        #     result.extend(self.right_child.all_terms())
-        # if self.left_child.in_range(expr):
-        #     result.extend(self.left_child.find_joker(expr))
-        # elif self.right_child.in_range(expr):
-        #     result.extend(self.right_child.find_joker(expr))
         return result
 
+    def find_files(self, joker, dictionary):
+        words = self.find_joker(joker)
+        return reduce(lambda x, y: x.union(y), [dictionary.get(word) for word in words])
 
 
 def build_dictionary_tree(terms):
@@ -185,10 +181,10 @@ def main():
              ]
              ]
     terms = mf.read_all_files(names)
-    tree = build_dictionary_tree(terms)
+    tree = build_dictionary_tree(terms.keys())
     # print(tree.all_terms())
     # print([x for x in tree.all_terms() if x.startswith("harry")])
-    print(tree.find_joker('ouch'))
+    print(tree.find_files('comrad', terms))
 
 if __name__ == '__main__':
     main()

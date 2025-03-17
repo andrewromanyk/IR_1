@@ -1,1 +1,7 @@
-print("a".startswith("az"))
+a = "abc"
+
+def b(a):
+    a = "b"
+
+b(a)
+print(a)
