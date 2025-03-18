@@ -7,12 +7,12 @@ free_file = 1
 def read_file(name: str, file_number, words=sc.SortedDict()) -> sc.SortedDict:
     fb2 = ET.iterparse(name, events=("start", "end"))
     print(f"-- Started iterpatse object: {basic.current_memory()}")
-    to_return = parse_root_tag(fb2, file_number, words)
+    parse_root_tag(fb2, file_number, words)
     print(f"-- After full parsing file: {basic.current_memory()}")
-    return to_return
+    return words
 
 
-def parse_root_tag(element, file_number, words) -> sc.SortedDict:
+def parse_root_tag(element, file_number, words):
     for event, elem in element:
         if elem.tag.endswith('binary'):
             elem.clear()
@@ -28,7 +28,6 @@ def parse_root_tag(element, file_number, words) -> sc.SortedDict:
         elem.clear()
         # print(f"- Stopped reading text: {basic.current_memory()}")
         # print(basic.current_memory())
-    return words
 
 
 def insert_word(word, words, file_number):
@@ -55,8 +54,8 @@ def parse_text(text: str, file_number, words: sc.SortedDict) -> None:
 
 def write_dict_to_file(dictionary: sc.SortedDict):
     global free_file
-    if free_file > 12:
-        raise "OOOPS. Too many files created"
+    # if free_file > 12:
+    #     raise "OOOPS. Too many files created"
     with open(f"blocks/{free_file}.txt", "w", encoding='utf-8') as f:
         for k, v in dictionary.items():
             line = str(k)
