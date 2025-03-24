@@ -3,7 +3,7 @@ import sortedcontainers as sc
 import psutil
 import os
 
-MAX_RAM = 128 #mb
+MAX_RAM = 128  #mb
 
 list_of_files = [
     'alice_in_wonderland.fb2',
