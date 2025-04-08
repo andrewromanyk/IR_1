@@ -5,7 +5,7 @@ import sortedcontainers as sc
 import os
 import basic
 import time
-
+import pickle
 
 def any_not_eof(lines):
     # print(lines)
@@ -20,7 +20,7 @@ def combine_all_blocks():
     freefile = count_files("blocks/")
     files = [open("blocks/" + str(i) + ".txt", 'r', encoding='utf-8') for i in range(1, freefile+1)]
     print(files)
-    with open("result.txt", "w", encoding='utf-8') as f:
+    with open("../task_8/result.txt", "w", encoding='utf-8') as f:
         lines = [f.readline() for f in files]
         print("started writing")
         while any_not_eof(lines):
@@ -52,6 +52,7 @@ def combine_all_blocks():
 
 def all_file_names(directory="../texts/"):
     all_items = os.listdir(directory)
+    print(all_items)
     files = [directory + item for item in all_items]
     return files
 
@@ -76,11 +77,12 @@ def main():
     print(f"- Finished in {end - start} seconds")
     for i in range(1, count_files("blocks/")+1):
         print(f"-- Size of file {i}.txt is {(os.stat(f'blocks/{i}.txt').st_size / 1024):.2f} kb")
-    print(f"- Size of result.txt is {(os.stat('result.txt').st_size / 1024):.2f}kb")
+    print(f"- Size of result.txt is {(os.stat('../task_8/result.txt').st_size / 1024):.2f}kb")
 
 
 
 if __name__ == '__main__':
-    names = ["../texts/" + i for i in basic.list_of_files]
-
+    # names = ["../texts/" + i for i in basic.list_of_files]
+    # print(all_file_names())
+    # basic.write_ser(all_file_names(), "../task_8/read_files.txt")
     main()

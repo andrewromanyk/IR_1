@@ -3,7 +3,7 @@ import sortedcontainers as sc
 import psutil
 import os
 
-MAX_RAM = 128  #mb
+MAX_RAM = 1024  #mb
 
 list_of_files = [
     'alice_in_wonderland.fb2',
@@ -69,7 +69,7 @@ def intersect_sorted_lists(a, b):
         else:
             value_b = next(iter_b, None)
     # print(result)
-    return sc.SortedList(result)
+    return result
 
 
 def union_sorted_lists(a, b):
@@ -107,3 +107,10 @@ def current_memory():
 
 def is_memory_full():
     return current_memory() >= MAX_RAM
+
+def flatten(list_of_lists):
+    result = []
+    for i in list_of_lists:
+        for j in i:
+            result.append(j)
+    return result

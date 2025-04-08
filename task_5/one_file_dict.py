@@ -7,7 +7,10 @@ free_file = 1
 def read_file(name: str, file_number, words=sc.SortedDict()) -> sc.SortedDict:
     fb2 = ET.iterparse(name, events=("start", "end"))
     print(f"-- Started iterpatse object: {basic.current_memory()}")
-    parse_root_tag(fb2, file_number, words)
+    try:
+        parse_root_tag(fb2, file_number, words)
+    except:
+        print(f"Can't parse {name}")
     print(f"-- After full parsing file: {basic.current_memory()}")
     return words
 
